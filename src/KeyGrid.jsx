@@ -153,7 +153,7 @@ const KeyGrid = () => {
   ];
   const [sequence, setSequence] = useState([]);
   const [keyPressed, setKeyPressed] = useState('');
-  const [showInfo, setShow] = useState(false);
+  const [showInfo, setShowInfo] = useState(false);
   const [showStats, setShowStats] = useState(false);
   const maxRows = 6;
   const maxCols = 5;
@@ -243,7 +243,7 @@ const KeyGrid = () => {
         <div className="app-header">
           <h2
             onClick={() => {
-              setShow(false);
+              setShowInfo(false);
               setShowStats(false);
             }}
           >
@@ -251,13 +251,19 @@ const KeyGrid = () => {
           </h2>
           <>
             <ion-icon
-              onClick={() => setShow(true)}
+              onClick={() => {
+                setShowInfo(!showInfo);
+                setShowStats(false);
+              }}
               name="information-circle-outline"
               size="large"
               aria-label="Info"
             ></ion-icon>
             <ion-icon
-              onClick={() => setShowStats(true)}
+              onClick={() => {
+                setShowStats(!showStats);
+                setShowInfo(false);
+              }}
               size="large"
               name="stats-chart-outline"
               aria-label="Stats"
