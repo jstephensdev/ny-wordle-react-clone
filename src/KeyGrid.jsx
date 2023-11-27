@@ -1,6 +1,7 @@
 // KeySequenceGrid.js
 
 import React, { useState, useEffect } from 'react';
+import Modal from './Modal';
 
 const KeySequenceGrid = () => {
 
@@ -155,6 +156,7 @@ const KeySequenceGrid = () => {
   const [sequence, setSequence] = useState([]);
   const [keyPressed, setKeyPressed] = useState("");
   const [wordGuess, setWordGuess] = useState("");
+  const [show, setShow] = useState(false);
   const wordToMatch = 'react';
   const maxRows = 6; // Change this to the desired number of rows
   const maxCols = 5; // Change this to the desired number of columns
@@ -216,7 +218,12 @@ const KeySequenceGrid = () => {
 
   return (
     <div className="key-sequence-container">
-      <h2>Ad Free Wordle</h2>
+      <div className='centeringContainer'>
+      <div style={{ display: 'flex', marginLeft: '20px'}}>      
+        <h2>NY Times Wordle Clone</h2><span><ion-icon className="ionIcon" onClick={() => setShow(!show)} name="information-circle-outline"></ion-icon></span>
+      </div>
+      </div>
+      { show ? <Modal title="Example Title" content="This is some content." /> : ''}
       <table className="key-sequence-table">
         <tbody>
           {Array.from({ length: maxRows }, (_, rowIndex) => (

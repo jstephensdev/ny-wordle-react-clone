@@ -1,10 +1,10 @@
 import React from 'react';
-import KeySequenceGrid from './KeyGrid';
+import KeyGrid from './KeyGrid';
 
 function App() {
   return (
     <div className='centeringContainer'>
-      <KeySequenceGrid />
+      <KeyGrid />
     </div>
   );
 }
