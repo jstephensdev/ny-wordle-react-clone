@@ -1,38 +1,67 @@
-.App {
+/* KeySequenceGrid.css */
+
+.key-sequence-container {
   text-align: center;
+  margin-top: 20px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.key-sequence-table {
+  border-collapse: collapse;
+  margin: 20px auto;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.key-cell {
+  width: 30px;
+  height: 30px;
+  border: 1px solid #ccc;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 16px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+/* keyboard */
+.key-default {
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border: 3px solid black;
+  border-radius: 5px;
   color: white;
+  background: rgb(0, 0, 0, 0.7);
+  margin-right: 5px;
+  font-size: 15px;
 }
 
-.App-link {
-  color: #61dafb;
+.keyboard-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: 5px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.key-pressed {
+  border-color: blue;
+  box-shadow: 0 0 10px blue;
+}
+
+.key-correct {
+  transform: scale(1.1);
+  border-color: green;
+  box-shadow: 0 0 10px green;
+}
+
+.key-in-word {
+  transform: scale(1.1);
+  border-color: #ffc600;
+  box-shadow: 0 0 10px #ffc600;
+}
+
+.key-not-in-word {
+  transform: scale(1.1);
+  border-color: gray;
+  box-shadow: 0 0 10px gray;
 }
