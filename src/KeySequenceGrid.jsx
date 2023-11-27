@@ -162,16 +162,16 @@ const KeySequenceGrid = () => {
   const handleKeyDown = (event) => {
     if (event.key.length === 1 && event.key.match(/[a-z]/i)) {
       setKeyPressed(event.key);
-      console.log(keyPressed)
       setSequence((prevSequence) => [...prevSequence, event.key]);
     }
 
-    if (sequence.length % maxCols === 0 && sequence.length > 0 ) {
+    if (sequence.length % maxCols === 0 && sequence.length > 0) {
       // Check for a match after each row is complete
       checkForMatch();
     }
 
-    if (event.key === 'Backspace') {
+    if (event.key === 'Backspace' ) {
+      setKeyPressed(event.key);
       // Handle Backspace key to remove the previous letter
       setSequence((prevSequence) =>  prevSequence.slice(0, -1));
     }
@@ -196,7 +196,7 @@ const KeySequenceGrid = () => {
       ).join('');
 
       setWordGuess(lastRowLetters)
-
+  
        // Check if the letters in the last row match the target word
        if (lastRowLetters === wordToMatch) {
         alert('Match! Resetting the board.');
@@ -212,6 +212,7 @@ const KeySequenceGrid = () => {
     setKeyPressed('');
     setSequence([]);
   };
+
 
   return (
     <div className="key-sequence-container">
@@ -236,9 +237,9 @@ const KeySequenceGrid = () => {
                 <div
                   className={
                     keyPressed === key.name &&
-                    wordToMatch.includes(keyPressed) 
-                      ? key.class + " key-correct"
-                      : keyPressed === key.name && !wordGuess.includes(key.name)
+                    wordToMatch.includes(keyPressed)
+                      ? key.class + " key-in-word"
+                      : keyPressed === key.name && !wordToMatch.includes(keyPressed)
                       ? key.class + " key-not-in-word"
                       : key.class
                   }
