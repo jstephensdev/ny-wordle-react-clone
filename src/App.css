@@ -1,4 +1,10 @@
-/* KeySequenceGrid.css */
+/* KeyGrid */
+.centeringContainer {
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  align-items: center;
+}
 
 .key-sequence-container {
   text-align: center;
@@ -41,17 +47,6 @@
   flex-direction: row;
   justify-content: center;
   margin: 5px;
-}
-
-.key-pressed {
-  border-color: blue;
-  box-shadow: 0 0 10px blue;
-}
-
-.key-correct {
-  transform: scale(1.1);
-  border-color: green;
-  box-shadow: 0 0 10px green;
 }
 
 .key-in-word {
