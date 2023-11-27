@@ -3,7 +3,7 @@ import KeyGrid from './KeyGrid';
 
 function App() {
   return (
-    <div className='centeringContainer'>
+    <div className="centeringContainer">
       <KeyGrid />
     </div>
   );

@@ -75,3 +75,9 @@
 .ionIcon:hover {
   color: black;
 }
+
+/* info */
+
+ul {
+  list-style-type: none;
+}
