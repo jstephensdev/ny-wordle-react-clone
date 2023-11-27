@@ -201,7 +201,7 @@ const KeyGrid = () => {
     } else if (sequence.length === maxRows * maxCols) {
       // If all rows are filled and no match, reset the board
       alert(
-        `All rows filled. Correct word ${wordToMatch} Resetting the board.`
+        `All rows filled. Correct word: '${wordToMatch}'. Resetting the board.`
       );
       resetBoard();
     }
