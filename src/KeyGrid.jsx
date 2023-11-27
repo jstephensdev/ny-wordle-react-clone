@@ -155,9 +155,15 @@ const KeyGrid = () => {
   const [keyPressed, setKeyPressed] = useState('');
   const [showInfo, setShowInfo] = useState(false);
   const [showStats, setShowStats] = useState(false);
+  const [wordToMatch, setWordToMatch] = useState(false);
   const maxRows = 6;
   const maxCols = 5;
-  const wordToMatch = faker.word.adjective(maxCols);
+  
+  useEffect(() => {
+    setWordToMatch(faker.word.adjective(maxCols));
+  },[])
+
+  console.log( wordToMatch)
 
   const handleKeyDown = (event) => {
     if (event.key.length === 1 && event.key.match(/[a-z]/i)) {
