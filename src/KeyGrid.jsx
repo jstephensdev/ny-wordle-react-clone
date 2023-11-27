@@ -163,8 +163,6 @@ const KeyGrid = () => {
     setWordToMatch(faker.word.adjective(maxCols));
   },[])
 
-  console.log( wordToMatch)
-
   const handleKeyDown = (event) => {
     if (event.key.length === 1 && event.key.match(/[a-z]/i)) {
       setKeyPressed(event.key);
