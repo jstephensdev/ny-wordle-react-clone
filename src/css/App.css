@@ -25,7 +25,7 @@ nav {
 .key-cell {
   width: 30px;
   height: 30px;
-  border: 1px solid black;
+  border: 2px solid black;
   text-align: center;
   vertical-align: middle;
   font-size: 25px;
@@ -41,7 +41,7 @@ nav {
   padding-right: 15px;
   padding-top: 5px;
   padding-bottom: 5px;
-  border: 3px solid black;
+  border: 2px solid black;
   border-radius: 5px;
   color: white;
   background: rgb(0, 0, 0, 0.7);
