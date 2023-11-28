@@ -1,4 +1,4 @@
-This react app provides a simular experience to the New York Time's daily wordle puzzle, https://www.nytimes.com/games/wordle/index.html.
+This react app provides a simular experience to the New York Time's daily Wordle puzzle, https://www.nytimes.com/games/wordle/index.html.
 
 ## local start:
 npm start
@@ -6,9 +6,9 @@ npm start
 ## Features:
 1. 5 letter word and 6 guesses
 2. random word per game
-3. keys indicate yellow when letter is in word and gray when it is not
+3. when a keyboard key is press, keys indicate yellow when the letter is in the word and gray when it is not
 
-## todo:
+## Features Todo:
 1. keyboard keys remain lit with expected css style
 2. display correct key style when key is in correct place
 3. improve word selection by provide words from an api or create a larger word list
@@ -16,3 +16,4 @@ npm start
 5. add abilit to set maxCols for longer or shorter words
 6. store stats 
 7. create stats section
+8. make it so keyboard keys in view are clickable
