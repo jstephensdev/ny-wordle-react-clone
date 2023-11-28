@@ -1,12 +1,16 @@
 This react app provides a simular experience to the New York Time's daily Wordle puzzle, https://www.nytimes.com/games/wordle/index.html.
 
+
+<img src="./readme-image.png" alt="Netlify" height="140" width="140" style="vertical-align:top; margin:4px">
+
 ## local start:
 npm start
 
 ## Features:
 1. 5 letter word and 6 guesses
 2. random word per game
-3. when a keyboard key is press, keys indicate yellow when the letter is in the word and gray when it is not
+3. when a keyboard key is pressed, keys indicate yellow when the letter is in the word and gray when it is not
+4. undue letters via delete / backspace
 
 ## Features Todo:
 1. keyboard keys remain lit with expected css style
@@ -17,3 +21,4 @@ npm start
 6. store stats 
 7. create stats section
 8. make it so keyboard keys in view are clickable
+9. prevent backspacing keys in word row guesses pior to the current row guess

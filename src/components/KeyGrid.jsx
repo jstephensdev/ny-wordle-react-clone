@@ -67,6 +67,7 @@ const KeyGrid = () => {
   const resetBoard = () => {
     setKeyPressed('');
     setSequence([]);
+    setWordToMatch(faker.word.adjective(maxCols));
   };
 
   const infoModalContent = () => {
@@ -153,9 +154,9 @@ const KeyGrid = () => {
             </tbody>
           </table>
           <div style={{ marginTop: '20px' }}>
-            {keyRows.map((row, index) => (
-              <div className="keyboard-row" key={index}>
-                {row.map((key) => (
+            {keyRows.map((row, rowIndex) => (
+              <div className="keyboard-row" key={rowIndex}>
+                {row.map((key, keyIndex) => (
                   <div
                     className={
                       keyPressed === key.name &&
@@ -166,7 +167,7 @@ const KeyGrid = () => {
                         ? key.class + ' key-not-in-word'
                         : key.class
                     }
-                    key={`${key.id} + ${key.name}`}
+                    key={keyIndex}
                   >
                     {key.name}
                   </div>
