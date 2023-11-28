@@ -13,3 +13,5 @@ npm start
 2. display correct key style when key is in correct place
 3. improve word selection by provide words from an api or create a larger word list
 4. make maxCols adjustable for longer or short words
+5. store stats 
+6. create stats section
