@@ -1,7 +1,7 @@
 This react app provides a simular experience to the New York Time's daily Wordle puzzle, https://www.nytimes.com/games/wordle/index.html.
 
 
-<img src="./readme-image.png" alt="Netlify" height="140" width="140" style="vertical-align:top; margin:4px">
+<img src="./readme-image.png" alt="Netlify" height="400" width="400" style="vertical-align:top; margin:4px">
 
 ## local start:
 npm start
