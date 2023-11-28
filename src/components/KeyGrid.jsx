@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Modal from '../components/Modal';
 import { faker } from '@faker-js/faker';
-import { keyRows } from './keyRows';
+import { keyRows } from '../config/keyRows';
 
 const KeyGrid = () => {
   const [sequence, setSequence] = useState([]);
