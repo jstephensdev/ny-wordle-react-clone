@@ -1,5 +1,5 @@
 import React from 'react';
-import KeyGrid from './KeyGrid';
+import KeyGrid from './components/KeyGrid';
 
 function App() {
   return (
