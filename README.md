@@ -11,5 +11,5 @@ npm start
 ## todo:
 1. keyboard keys remain lit with correct css style
 2. display correct key style when key is in correct place
-3. provide words from a different api or create a large word list
+3. improve word selection by provide words from an api or create a larger word list
 4. make maxCols adjustable for longer or short words
