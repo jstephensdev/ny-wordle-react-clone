@@ -1,9 +1,15 @@
 /* KeyGrid */
-.centeringContainer {
+.app-header {
   display: flex;
-  justify-content: center;
-  height: 100%;
+  flex-direction: row;
+  justify-content: space-between;
   align-items: center;
+  padding: 20px;
+  margin: 0px 20px 5px 20px;
+}
+
+nav {
+  border-bottom: solid;
 }
 
 .key-sequence-container {
@@ -23,6 +29,7 @@
   text-align: center;
   vertical-align: middle;
   font-size: 16px;
+  padding: 10px;
 }
 
 /* keyboard */

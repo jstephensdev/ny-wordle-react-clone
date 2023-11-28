@@ -9,9 +9,10 @@ npm start
 3. keys indicate yellow when letter is in word and gray when it is not
 
 ## todo:
-1. keyboard keys remain lit with correct css style
+1. keyboard keys remain lit with expected css style
 2. display correct key style when key is in correct place
 3. improve word selection by provide words from an api or create a larger word list
-4. make maxCols adjustable for longer or short words
-5. store stats 
-6. create stats section
+4. make setting icon work. 
+5. add abilit to set maxCols for longer or shorter words
+6. store stats 
+7. create stats section

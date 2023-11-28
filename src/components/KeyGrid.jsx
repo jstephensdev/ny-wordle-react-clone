@@ -158,10 +158,10 @@ const KeyGrid = () => {
   const [wordToMatch, setWordToMatch] = useState(false);
   const maxRows = 6;
   const maxCols = 5;
-  
+
   useEffect(() => {
     setWordToMatch(faker.word.adjective(maxCols));
-  },[])
+  }, []);
 
   const handleKeyDown = (event) => {
     if (event.key.length === 1 && event.key.match(/[a-z]/i)) {
@@ -243,38 +243,43 @@ const KeyGrid = () => {
 
   return (
     <div className="key-sequence-container">
-      <div className="centeringContainer">
-        <div className="app-header">
-          <h2
+      <nav className="app-header">
+        <h2
+          onClick={() => {
+            setShowInfo(false);
+            setShowStats(false);
+          }}
+        >
+          NY Times Wordle Clone
+        </h2>
+        <div>
+          <ion-icon
             onClick={() => {
-              setShowInfo(false);
+              setShowInfo(!showInfo);
               setShowStats(false);
             }}
-          >
-            NY Times Wordle Clone
-          </h2>
-          <>
+            name="help"
+            size="large"
+            aria-label="Info"
+          ></ion-icon>
+          <ion-icon
+            onClick={() => {
+              setShowStats(!showStats);
+              setShowInfo(false);
+            }}
+            size="large"
+            name="stats-chart-outline"
+            aria-label="Stats"
+          ></ion-icon>
+          <span style={{ margin: '5px' }}>
             <ion-icon
-              onClick={() => {
-                setShowInfo(!showInfo);
-                setShowStats(false);
-              }}
-              name="information-circle-outline"
               size="large"
-              aria-label="Info"
+              name="settings"
+              aria-label="Settings"
             ></ion-icon>
-            <ion-icon
-              onClick={() => {
-                setShowStats(!showStats);
-                setShowInfo(false);
-              }}
-              size="large"
-              name="stats-chart-outline"
-              aria-label="Stats"
-            ></ion-icon>
-          </>
+          </span>
         </div>
-      </div>
+      </nav>
       {showInfo ? (
         <Modal title="How To:" content={infoModalContent()} />
       ) : showStats ? (
