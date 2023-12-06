@@ -1,3 +1,7 @@
+h2:hover {
+  cursor: pointer;
+}
+
 /* KeyGrid */
 .app-header {
   display: flex;
@@ -32,6 +36,18 @@ nav {
   padding: 10px;
 }
 
+.key-yellow {
+  background: #ffc600;
+}
+
+.key-gray {
+  background: gray;
+}
+
+.key-green  {
+  background: green;
+}
+
 /* keyboard */
 .key-default {
   display: flex;
@@ -54,6 +70,12 @@ nav {
   flex-direction: row;
   justify-content: center;
   margin: 5px;
+}
+
+.key-in-correct-spot {
+  transform: scale(1.1);
+  border-color: green;
+  box-shadow: 0 0 10px green;
 }
 
 .key-in-word {
