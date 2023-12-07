@@ -10,28 +10,28 @@ const KeyGrid = () => {
   const [showStats, setShowStats] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
   const [wordToMatch, setWordToMatch] = useState('');
+  const [rowNum, setRowNum] = useState(1);
   const maxRows = 6;
   const maxCols = 5;
 
-  console.log(wordToMatch)
-
   useEffect(() => {
+    setKeyPressed('');
+    setSequence([]);
+    setRowNum(1);
     setWordToMatch(faker.word.adjective(maxCols));
   }, []);
 
   const handleKeyDown = (event) => {
     setKeyPressed(event.key);
-    // set the event when key has a length of 1, the key must be lowercase a-z
     if (event.key.length === 1 && event.key.match(/[a-z]/i)) {
       setSequence((prevSequence) => [...prevSequence, event.key]);
     }
-    // Check for a match on enter after each row is complete
-    if (event.key === 'Enter') {
-      if (sequence.length % maxCols === 0 && sequence.length > 0) {
-        checkForMatch();
-      }
+
+    if (sequence.length % maxCols === 0 && sequence.length > 0) {
+      setRowNum(rowNum + 1);
+      checkForMatch();
     }
-    // Handle Backspace key to remove the previous letter
+
     if (event.key === 'Backspace') {
       setSequence((prevSequence) => prevSequence.slice(0, -1));
     }
@@ -56,14 +56,11 @@ const KeyGrid = () => {
   };
 
   const checkForMatch = () => {
-    // Extract the letters from the last row
     const lastRowLetters = lastRow();
-    // Check if the letters in the last row match the wordToMatch
     if (lastRowLetters === wordToMatch) {
-      alert('Match! Resetting the board.');
+      alert(`Match! Resetting the board. Try ${rowNum}`);
       resetBoard();
     } else if (sequence.length === maxRows * maxCols) {
-      // If all rows are filled and no match, reset the board
       alert(
         `All rows filled. Correct word: '${wordToMatch}'. Resetting the board.`
       );
@@ -111,10 +108,12 @@ const KeyGrid = () => {
 
   const isLetterMatchingAtCurrentPosition = () => {
     let checkGrid = '';
-    for(let i = 0; i < 5; i++ ){
+    for (let i = 0; i < 6; i++) {
       checkGrid = checkGrid.concat(wordToMatch);
     }
-    return sequence[sequence.length - 1] === checkGrid.split('')[sequence.length - 1];
+    return (
+      sequence[sequence.length - 1] === checkGrid.split('')[sequence.length - 1]
+    );
   };
 
   return (
