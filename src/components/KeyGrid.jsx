@@ -8,16 +8,15 @@ const KeyGrid = () => {
   const [keyPressed, setKeyPressed] = useState('');
   const [showInfo, setShowInfo] = useState(false);
   const [showStats, setShowStats] = useState(false);
-  const [showSettings, setShowSettings] = useState(false);
   const [wordToMatch, setWordToMatch] = useState('');
-  const [rowNum, setRowNum] = useState(1);
+  const [rowNum, setRowNum] = useState(0);
   const maxRows = 6;
   const maxCols = 5;
 
   useEffect(() => {
     setKeyPressed('');
     setSequence([]);
-    setRowNum(1);
+    setRowNum(0);
     setWordToMatch(faker.word.adjective(maxCols));
   }, []);
 
@@ -77,27 +76,23 @@ const KeyGrid = () => {
   const infoModalContent = () => {
     return (
       <ul>
-        <li>Type a five letter word and hit enter.</li>
+        <li>Type a five letter word.</li>
         <li>
-          The keyboard keys will light up as a key/letter is clicked. Yellow
-          means they exist in the word and gray means the letter does not
+          As you type, the keyboard keys will light up. Yellow means they exist
+          in the word and gray means the letter does not.
         </li>
+        <li>Continue to guess until there are no more rows.</li>
         <li>
           If the word is correct, an alert with match will appear before
           resetting the game.
         </li>
-        <li>Continue to guess until there are no more rows.</li>
-        <li>Alert will appear with correct word before resetting the game.</li>
+        <li>If no more guesses available, an alert will appear with correct word before resetting the game.</li>
       </ul>
     );
   };
 
   const statsModalContent = () => {
     return <div>Stats coming soon!</div>;
-  };
-
-  const settingsModalContent = () => {
-    return <div>Settings coming soon!</div>;
   };
 
   const inWordToMatch = () => {
@@ -123,7 +118,6 @@ const KeyGrid = () => {
           onClick={() => {
             setShowInfo(false);
             setShowStats(false);
-            setShowSettings(false);
           }}
         >
           NY Times Wordle Clone
@@ -145,24 +139,12 @@ const KeyGrid = () => {
             name="stats-chart-outline"
             aria-label="Stats"
           ></ion-icon>
-          <span style={{ margin: '5px' }}>
-            <ion-icon
-              onClick={() => {
-                setShowSettings(!showSettings);
-              }}
-              size="large"
-              name="settings"
-              aria-label="Settings"
-            ></ion-icon>
-          </span>
         </div>
       </nav>
       {showInfo ? (
         <Modal title="How To:" content={infoModalContent()} />
       ) : showStats ? (
         <Modal title="Stats:" content={statsModalContent()} />
-      ) : showSettings ? (
-        <Modal title="Setttings:" content={settingsModalContent()} />
       ) : (
         <>
           <table className="key-sequence-table">
