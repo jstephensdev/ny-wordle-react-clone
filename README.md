@@ -7,6 +7,9 @@ This react app provides a simular experience to the New York Time's daily Wordle
 1. npm install
 2. npm start
 
+## Technology Used:
+1. React
+
 ## Features:
 1. 5 letter word and 6 guesses
 2. random word per game
