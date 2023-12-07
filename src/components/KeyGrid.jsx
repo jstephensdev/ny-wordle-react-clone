@@ -78,8 +78,8 @@ const KeyGrid = () => {
       <ul>
         <li>Type a five letter word.</li>
         <li>
-          As you type, the keyboard keys will light up. Yellow means they exist
-          in the word and gray means the letter does not.
+         Green: the letter is in the correct spot in the  word. <br/> Yellow: the letter exists in the word. 
+         <br/>Gray: the letter in not in the word.
         </li>
         <li>Continue to guess until there are no more rows.</li>
         <li>
