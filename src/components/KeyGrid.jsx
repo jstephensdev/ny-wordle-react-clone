@@ -5,28 +5,35 @@ import { keyRows } from '../config/keyRows';
 
 const KeyGrid = () => {
   const [sequence, setSequence] = useState([]);
-  const [keyPressed, setKeyPressed] = useState('');
   const [showInfo, setShowInfo] = useState(false);
   const [showStats, setShowStats] = useState(false);
   const [wordToMatch, setWordToMatch] = useState('');
-  const [rowNum, setRowNum] = useState(0);
+  const [message, setMessage] = useState('');
+  const [rowNum, setRowNum] = useState(1);
+  const [feedbackObj, setFeedbackObj] = useState({
+    green: [],
+    yellow: [],
+    gray: [],
+  });
   const maxRows = 6;
   const maxCols = 5;
 
   useEffect(() => {
-    setKeyPressed('');
     setSequence([]);
-    setRowNum(0);
     setWordToMatch(faker.word.adjective(maxCols));
   }, []);
 
   const handleKeyDown = (event) => {
-    setKeyPressed(event.key);
-    if (event.key.length === 1 && event.key.match(/[a-z]/i)) {
+
+    if (event.key.length === 1 && event.key.match(/[a-z]/i) && !message) {
       setSequence((prevSequence) => [...prevSequence, event.key]);
     }
 
-    if (sequence.length % maxCols === 0 && sequence.length > 0) {
+    if (
+      sequence.length % maxCols === 0 &&
+      sequence.length > 0 &&
+      lastRow().length > 4 && !message
+    ) {
       setRowNum(rowNum + 1);
       checkForMatch();
     }
@@ -56,20 +63,44 @@ const KeyGrid = () => {
 
   const checkForMatch = () => {
     const lastRowLetters = lastRow();
+    // add green, yellow, and gray to cells
+    const feedback = generateFeedback(lastRowLetters, wordToMatch);
+    setFeedbackObj(feedback);
+
     if (lastRowLetters === wordToMatch) {
-      alert(`Match! Resetting the board. Try ${rowNum}`);
-      resetBoard();
+      setMessage(`Match! Resetting the board. Try ${rowNum}`);
     } else if (sequence.length === maxRows * maxCols) {
-      alert(
-        `All rows filled. Correct word: '${wordToMatch}'. Resetting the board.`
+      setMessage(
+        `All rows filled. Correct word: '${wordToMatch}'.`
       );
-      resetBoard();
+    } 
+  };
+
+  const generateFeedback = (input, target) => {
+    const feedback = {
+      green: [],
+      yellow: [],
+      gray: [],
+    };
+
+    for (let i = 0; i < 5; i++) {
+      if (input[i] === target[i]) {
+        feedback.green.push(input[i]);
+      } else if (target.includes(input[i])) {
+        feedback.yellow.push(input[i]);
+      } else {
+        feedback.gray.push(input[i]);
+      }
     }
+
+    return feedback;
   };
 
   const resetBoard = () => {
-    setKeyPressed('');
+    setMessage('');
+    setFeedbackObj({ green: [], yellow: [], gray: [] });
     setSequence([]);
+    setRowNum(0);
     setWordToMatch(faker.word.adjective(maxCols));
   };
 
@@ -78,37 +109,26 @@ const KeyGrid = () => {
       <ul>
         <li>Type a five letter word.</li>
         <li>
-         Green: the letter is in the correct spot in the  word. <br/> Yellow: the letter exists in the word. 
-         <br/>Gray: the letter in not in the word.
+          Green: the letter is in the correct spot in the word. <br /> Yellow:
+          the letter exists in the word.
+          <br />
+          Gray: the letter is not in the word.
         </li>
         <li>Continue to guess until there are no more rows.</li>
         <li>
-          If the word is correct, an alert with match will appear before
-          resetting the game.
+          If the word is correct, a message with match and a reset button will
+          appear .
         </li>
-        <li>If no more guesses available, an alert will appear with correct word before resetting the game.</li>
+        <li>
+          If no more guesses available, a message will appear with correct word
+          and a reset button.
+        </li>
       </ul>
     );
   };
 
   const statsModalContent = () => {
     return <div>Stats coming soon!</div>;
-  };
-
-  const inWordToMatch = () => {
-    if (keyPressed !== '') {
-      return wordToMatch.includes(keyPressed);
-    }
-  };
-
-  const isLetterMatchingAtCurrentPosition = () => {
-    let checkGrid = '';
-    for (let i = 0; i < 6; i++) {
-      checkGrid = checkGrid.concat(wordToMatch);
-    }
-    return (
-      sequence[sequence.length - 1] === checkGrid.split('')[sequence.length - 1]
-    );
   };
 
   return (
@@ -147,27 +167,35 @@ const KeyGrid = () => {
         <Modal title="Stats:" content={statsModalContent()} />
       ) : (
         <>
+          {message ? (
+            <div>
+              {message}
+              <span>
+                <button style={{marginLeft: '1rem'}} onClick={resetBoard}>Reset</button>
+              </span>
+            </div>
+          ) : (
+            ''
+          )}
           <table className="key-sequence-table">
             <tbody>
               {Array.from({ length: maxRows }, (_, rowIndex) => (
-                <tr key={rowIndex + 1}>
+                <tr key={rowIndex}>
                   {Array.from({ length: maxCols }, (_, colIndex) => (
                     <td
-                      key={colIndex + 1}
+                      key={colIndex}
                       className={
-                        keyPressed ===
-                          getCellValue(rowIndex * maxCols + colIndex) &&
-                        wordToMatch &&
-                        inWordToMatch() &&
-                        isLetterMatchingAtCurrentPosition()
+                        feedbackObj.green.includes(
+                          getCellValue(rowIndex * maxCols + colIndex)
+                        )
                           ? 'key-cell key-green'
-                          : keyPressed ===
-                              getCellValue(rowIndex * maxCols + colIndex) &&
-                            inWordToMatch()
+                          : feedbackObj.yellow.includes(
+                              getCellValue(rowIndex * maxCols + colIndex)
+                            )
                           ? 'key-cell key-yellow'
-                          : keyPressed ===
-                              getCellValue(rowIndex * maxCols + colIndex) &&
-                            keyPressed !== ''
+                          : feedbackObj.gray.includes(
+                              getCellValue(rowIndex * maxCols + colIndex)
+                            )
                           ? 'key-cell key-gray'
                           : 'key-cell'
                       }
@@ -183,23 +211,21 @@ const KeyGrid = () => {
             {keyRows.map((row, rowIndex) => (
               <div className="keyboard-row" key={rowIndex}>
                 {row.map((key, keyIndex) => (
-                  <div
+                  <button
+                    onClick={() => handleKeyDown(key)}
                     className={
-                      keyPressed === key.name &&
-                      wordToMatch &&
-                      inWordToMatch() &&
-                      isLetterMatchingAtCurrentPosition()
+                      feedbackObj.green.includes(key.key)
                         ? key.class + ' key-in-correct-spot'
-                        : keyPressed === key.name && inWordToMatch()
+                        : feedbackObj.yellow.includes(key.key)
                         ? key.class + ' key-in-word'
-                        : keyPressed === key.name && !inWordToMatch()
+                        : feedbackObj.gray.includes(key.key)
                         ? key.class + ' key-not-in-word'
                         : key.class
                     }
                     key={keyIndex}
                   >
-                    {key.name}
-                  </div>
+                    {key.key}
+                  </button>
                 ))}
               </div>
             ))}
