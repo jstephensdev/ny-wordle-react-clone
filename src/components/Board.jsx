@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import Modal from '../components/Modal';
+import Modal from './Modal';
 import { faker } from '@faker-js/faker';
 import { keyRows } from '../config/keyRows';
 
-const KeyGrid = () => {
+const Board = () => {
   const [sequence, setSequence] = useState([]);
   const [showInfo, setShowInfo] = useState(false);
   const [showStats, setShowStats] = useState(false);
   const [wordToMatch, setWordToMatch] = useState('');
   const [message, setMessage] = useState('');
-  const [rowNum, setRowNum] = useState(1);
   const [feedbackObj, setFeedbackObj] = useState({
     green: [],
     yellow: [],
@@ -18,23 +17,19 @@ const KeyGrid = () => {
   const maxRows = 6;
   const maxCols = 5;
 
+  console.log(wordToMatch);
+  console.log(sequence);
+
   useEffect(() => {
-    setSequence([]);
     setWordToMatch(faker.word.adjective(maxCols));
   }, []);
 
   const handleKeyDown = (event) => {
-
     if (event.key.length === 1 && event.key.match(/[a-z]/i) && !message) {
       setSequence((prevSequence) => [...prevSequence, event.key]);
     }
 
-    if (
-      sequence.length % maxCols === 0 &&
-      sequence.length > 0 &&
-      lastRow().length > 4 && !message
-    ) {
-      setRowNum(rowNum + 1);
+    if (sequence.length % maxCols === 0 && sequence.length > 0) {
       checkForMatch();
     }
 
@@ -52,28 +47,23 @@ const KeyGrid = () => {
   });
 
   const getCellValue = (index) => {
-    return sequence.length > index ? sequence[index] : '';
-  };
-
-  const lastRow = () => {
-    return Array.from({ length: maxCols }, (_, colIndex) =>
-      getCellValue(sequence.length - maxCols + colIndex)
-    ).join('');
+    if (sequence.length > 0) {
+      return sequence.length > index ? sequence[index] : '';
+    }
   };
 
   const checkForMatch = () => {
-    const lastRowLetters = lastRow();
+    const wordGuess = sequence.slice(-5).join("");
     // add green, yellow, and gray to cells
-    const feedback = generateFeedback(lastRowLetters, wordToMatch);
+    const feedback = generateFeedback(wordGuess, wordToMatch);
+
     setFeedbackObj(feedback);
 
-    if (lastRowLetters === wordToMatch) {
-      setMessage(`Match! Resetting the board. Try ${rowNum}`);
+    if (wordGuess === wordToMatch) {
+      setMessage('Match! Reset the board.');
     } else if (sequence.length === maxRows * maxCols) {
-      setMessage(
-        `All rows filled. Correct word: '${wordToMatch}'.`
-      );
-    } 
+      setMessage(`All rows filled. Correct word: '${wordToMatch}'.`);
+    }
   };
 
   const generateFeedback = (input, target) => {
@@ -85,7 +75,7 @@ const KeyGrid = () => {
 
     for (let i = 0; i < 5; i++) {
       if (input[i] === target[i]) {
-        feedback.green.push(input[i]);
+        feedback.green.push(input[i])
       } else if (target.includes(input[i])) {
         feedback.yellow.push(input[i]);
       } else {
@@ -100,7 +90,6 @@ const KeyGrid = () => {
     setMessage('');
     setFeedbackObj({ green: [], yellow: [], gray: [] });
     setSequence([]);
-    setRowNum(0);
     setWordToMatch(faker.word.adjective(maxCols));
   };
 
@@ -117,7 +106,7 @@ const KeyGrid = () => {
         <li>Continue to guess until there are no more rows.</li>
         <li>
           If the word is correct, a message with match and a reset button will
-          appear .
+          appear.
         </li>
         <li>
           If no more guesses available, a message will appear with correct word
@@ -131,13 +120,35 @@ const KeyGrid = () => {
     return <div>Stats coming soon!</div>;
   };
 
+  const cellClass = (rowIndex, colIndex) => {
+    return feedbackObj.green.includes(
+      getCellValue(rowIndex * maxCols + colIndex)
+    ) 
+      ? 'key-cell key-green'
+      : feedbackObj.yellow.includes(getCellValue(rowIndex * maxCols + colIndex)) 
+      ? 'key-cell key-yellow'
+      : feedbackObj.gray.includes(getCellValue(rowIndex * maxCols + colIndex)) 
+      ? 'key-cell key-gray'
+      : 'key-cell';
+  };
+
+  const keyClass = (key) => {
+    return feedbackObj.green.includes(key.key)
+      ? key.class + ' key-in-correct-spot'
+      : feedbackObj.yellow.includes(key.key)
+      ? key.class + ' key-in-word'
+      : feedbackObj.gray.includes(key.key)
+      ? key.class + ' key-not-in-word'
+      : key.class;
+  };
+
   return (
     <div className="key-sequence-container">
       <nav className="app-header">
         <h2
           onClick={() => {
-            setShowInfo(false);
-            setShowStats(false);
+            setShowInfo(!showInfo);
+            setShowStats(!showStats);
           }}
         >
           NY Times Wordle Clone
@@ -171,7 +182,9 @@ const KeyGrid = () => {
             <div>
               {message}
               <span>
-                <button style={{marginLeft: '1rem'}} onClick={resetBoard}>Reset</button>
+                <button style={{ marginLeft: '1rem' }} onClick={resetBoard}>
+                  Reset
+                </button>
               </span>
             </div>
           ) : (
@@ -183,22 +196,9 @@ const KeyGrid = () => {
                 <tr key={rowIndex}>
                   {Array.from({ length: maxCols }, (_, colIndex) => (
                     <td
+                    id={colIndex}
                       key={colIndex}
-                      className={
-                        feedbackObj.green.includes(
-                          getCellValue(rowIndex * maxCols + colIndex)
-                        )
-                          ? 'key-cell key-green'
-                          : feedbackObj.yellow.includes(
-                              getCellValue(rowIndex * maxCols + colIndex)
-                            )
-                          ? 'key-cell key-yellow'
-                          : feedbackObj.gray.includes(
-                              getCellValue(rowIndex * maxCols + colIndex)
-                            )
-                          ? 'key-cell key-gray'
-                          : 'key-cell'
-                      }
+                      className={cellClass(rowIndex, colIndex)}
                     >
                       {getCellValue(rowIndex * maxCols + colIndex)}
                     </td>
@@ -213,15 +213,7 @@ const KeyGrid = () => {
                 {row.map((key, keyIndex) => (
                   <button
                     onClick={() => handleKeyDown(key)}
-                    className={
-                      feedbackObj.green.includes(key.key)
-                        ? key.class + ' key-in-correct-spot'
-                        : feedbackObj.yellow.includes(key.key)
-                        ? key.class + ' key-in-word'
-                        : feedbackObj.gray.includes(key.key)
-                        ? key.class + ' key-not-in-word'
-                        : key.class
-                    }
+                    className={keyClass(key)}
                     key={keyIndex}
                   >
                     {key.key}
@@ -236,4 +228,4 @@ const KeyGrid = () => {
   );
 };
 
-export default KeyGrid;
+export default Board;

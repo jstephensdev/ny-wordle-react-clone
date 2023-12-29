@@ -1,10 +1,10 @@
 import React from 'react';
-import KeyGrid from './components/KeyGrid';
+import Board from './components/Board';
 
 function App() {
   return (
     <div className="centeringContainer">
-      <KeyGrid />
+      <Board />
     </div>
   );
 }
