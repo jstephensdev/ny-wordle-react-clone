@@ -146,6 +146,16 @@ const Board = () => {
             name="stats-chart-outline"
             aria-label="Stats"
           ></ion-icon>
+          <a
+            href="https://github.com/jstephensdev/ny-wordle-react-clone"
+            target="_blank"
+          >
+            <ion-icon
+              size="large"
+              aria-label="github"
+              name="logo-github"
+            ></ion-icon>
+          </a>
         </div>
       </nav>
       {showInfo ? (
