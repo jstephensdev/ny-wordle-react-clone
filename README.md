@@ -19,11 +19,11 @@ This react app provides a simular experience to the New York Time's daily Wordle
 5. undue letters via delete / backspace
 
 ## Things to Improve or Todo:
-1. keyboard keys remain lit with expected css style
-2. improve word selection by providing words from an api or create a larger word list
-3. make setting icon work. 
+1. keyboard keys light up too
+2. improve word selection by providing words from larger word list
+3. add and make setting icon work. 
 4. add ability to set maxCols for longer or shorter words
 5. store stats 
 6. create stats section
 7. prevent backspacing keys in word row guesses pior to the current row guess
-8. alter the includes logic so that previously added keys do not light up, or only show feedback when row guess completes
+8. mobile css needs work
