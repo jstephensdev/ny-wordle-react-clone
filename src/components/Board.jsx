@@ -167,37 +167,39 @@ const Board = () => {
           ) : (
             ''
           )}
-          <table className="key-sequence-table">
-            <tbody>
-              {Array.from({ length: maxRows }, (_, rowIndex) => (
-                <tr key={rowIndex}>
-                  {Array.from({ length: maxCols }, (_, colIndex) => (
-                    <td
-                      id={getCellValue(rowIndex * maxCols + colIndex).id}
-                      key={colIndex}
-                      className="key-cell"
-                    >
-                      {getCellValue(rowIndex * maxCols + colIndex).key}
-                    </td>
-                  ))}
-                </tr>
-              ))}
-            </tbody>
-          </table>
-          <div style={{ marginTop: '20px' }}>
-            {keyRows.map((row, rowIndex) => (
-              <div className="keyboard-row" key={rowIndex}>
-                {row.map((key, keyIndex) => (
-                  <button
-                    onClick={() => handleKeyDown(key)}
-                    className={key.class}
-                    key={keyIndex}
-                  >
-                    {key.key}
-                  </button>
+          <div>
+            <table className="key-sequence-table">
+              <tbody>
+                {Array.from({ length: maxRows }, (_, rowIndex) => (
+                  <tr key={rowIndex}>
+                    {Array.from({ length: maxCols }, (_, colIndex) => (
+                      <td
+                        id={getCellValue(rowIndex * maxCols + colIndex).id}
+                        key={colIndex}
+                        className="key-cell"
+                      >
+                        {getCellValue(rowIndex * maxCols + colIndex).key}
+                      </td>
+                    ))}
+                  </tr>
                 ))}
-              </div>
-            ))}
+              </tbody>
+            </table>
+            <div style={{ marginTop: '20px' }}>
+              {keyRows.map((row, rowIndex) => (
+                <div className="keyboard-row" key={rowIndex}>
+                  {row.map((key, keyIndex) => (
+                    <button
+                      onClick={() => handleKeyDown(key)}
+                      className={key.class}
+                      key={keyIndex}
+                    >
+                      {key.key}
+                    </button>
+                  ))}
+                </div>
+              ))}
+            </div>
           </div>
         </>
       )}

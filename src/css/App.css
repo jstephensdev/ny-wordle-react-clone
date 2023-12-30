@@ -62,14 +62,13 @@ nav {
   color: white;
   background: rgb(0, 0, 0, 0.7);
   margin-right: 5px;
-  font-size: 15px;
+  font-size: 12px;
 }
 
 .keyboard-row {
   display: flex;
-  flex-direction: row;
   justify-content: center;
-  margin: 5px;
+  margin: 2px;
 }
 
 .key-in-correct-spot {
@@ -90,6 +89,13 @@ nav {
   box-shadow: 0 0 10px gray;
 }
 
+@media (max-width: 768px) {
+  .keyboard-row {
+    display: inline-flex;
+    margin-right: 15px;
+    margin-left: 15px;
+  }
+}
 /* info */
 
 ul {
