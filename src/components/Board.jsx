@@ -9,11 +9,6 @@ const Board = () => {
   const [showStats, setShowStats] = useState(false);
   const [wordToMatch, setWordToMatch] = useState('');
   const [message, setMessage] = useState('');
-  const [feedbackObj, setFeedbackObj] = useState({
-    green: [],
-    yellow: [],
-    gray: [],
-  });
   const maxRows = 6;
   const maxCols = 5;
 
@@ -26,7 +21,10 @@ const Board = () => {
 
   const handleKeyDown = (event) => {
     if (event.key.length === 1 && event.key.match(/[a-z]/i) && !message) {
-      setSequence((prevSequence) => [...prevSequence, event.key]);
+      setSequence((prevSequence) => [
+        ...prevSequence,
+        { id: sequence.length, key: event.key },
+      ]);
     }
 
     if (sequence.length % maxCols === 0 && sequence.length > 0) {
@@ -47,17 +45,16 @@ const Board = () => {
   });
 
   const getCellValue = (index) => {
-    if (sequence.length > 0) {
-      return sequence.length > index ? sequence[index] : '';
-    }
+    return sequence.length > index ? sequence[index] : '';
   };
 
   const checkForMatch = () => {
-    const wordGuess = sequence.slice(-5).join("");
+    const wordGuess = sequence
+      .map((obj) => obj.key)
+      .slice(-5)
+      .join('');
     // add green, yellow, and gray to cells
-    const feedback = generateFeedback(wordGuess, wordToMatch);
-
-    setFeedbackObj(feedback);
+    generateFeedback(sequence.slice(-5), wordToMatch);
 
     if (wordGuess === wordToMatch) {
       setMessage('Match! Reset the board.');
@@ -72,25 +69,27 @@ const Board = () => {
       yellow: [],
       gray: [],
     };
-
     for (let i = 0; i < 5; i++) {
-      if (input[i] === target[i]) {
-        feedback.green.push(input[i])
-      } else if (target.includes(input[i])) {
-        feedback.yellow.push(input[i]);
+      if (input[i].key === target[i]) {
+        const greenCell = document.getElementById(input[i].id);
+        feedback.green.push(input[i].key);
+        greenCell.style.backgroundColor = 'green';
+        // word includes letter and it is not green
+      } else if (
+        target.includes(input[i].key) &&
+        !feedback.green.includes(input[i].key)
+      ) {
+        const yellowCell = document.getElementById(input[i].id);
+        yellowCell.style.backgroundColor = 'yellow';
       } else {
-        feedback.gray.push(input[i]);
+        const grayCell = document.getElementById(input[i].id);
+        grayCell.style.backgroundColor = 'gray';
       }
     }
-
-    return feedback;
   };
 
   const resetBoard = () => {
-    setMessage('');
-    setFeedbackObj({ green: [], yellow: [], gray: [] });
-    setSequence([]);
-    setWordToMatch(faker.word.adjective(maxCols));
+    window.location.reload();
   };
 
   const infoModalContent = () => {
@@ -118,28 +117,6 @@ const Board = () => {
 
   const statsModalContent = () => {
     return <div>Stats coming soon!</div>;
-  };
-
-  const cellClass = (rowIndex, colIndex) => {
-    return feedbackObj.green.includes(
-      getCellValue(rowIndex * maxCols + colIndex)
-    ) 
-      ? 'key-cell key-green'
-      : feedbackObj.yellow.includes(getCellValue(rowIndex * maxCols + colIndex)) 
-      ? 'key-cell key-yellow'
-      : feedbackObj.gray.includes(getCellValue(rowIndex * maxCols + colIndex)) 
-      ? 'key-cell key-gray'
-      : 'key-cell';
-  };
-
-  const keyClass = (key) => {
-    return feedbackObj.green.includes(key.key)
-      ? key.class + ' key-in-correct-spot'
-      : feedbackObj.yellow.includes(key.key)
-      ? key.class + ' key-in-word'
-      : feedbackObj.gray.includes(key.key)
-      ? key.class + ' key-not-in-word'
-      : key.class;
   };
 
   return (
@@ -196,11 +173,11 @@ const Board = () => {
                 <tr key={rowIndex}>
                   {Array.from({ length: maxCols }, (_, colIndex) => (
                     <td
-                    id={colIndex}
+                      id={getCellValue(rowIndex * maxCols + colIndex).id}
                       key={colIndex}
-                      className={cellClass(rowIndex, colIndex)}
+                      className="key-cell"
                     >
-                      {getCellValue(rowIndex * maxCols + colIndex)}
+                      {getCellValue(rowIndex * maxCols + colIndex).key}
                     </td>
                   ))}
                 </tr>
@@ -213,7 +190,7 @@ const Board = () => {
                 {row.map((key, keyIndex) => (
                   <button
                     onClick={() => handleKeyDown(key)}
-                    className={keyClass(key)}
+                    className={key.class}
                     key={keyIndex}
                   >
                     {key.key}
