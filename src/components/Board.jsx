@@ -147,6 +147,7 @@ const Board = () => {
             aria-label="Stats"
           ></ion-icon>
           <a
+            rel="noreferrer"
             href="https://github.com/jstephensdev/ny-wordle-react-clone"
             target="_blank"
           >
