@@ -127,7 +127,7 @@ const Board = () => {
             setShowStats(!showStats);
           }}
         >
-          NY Times Wordle Clone
+          Ad Free Wordle
         </h2>
         <div>
           <ion-icon
