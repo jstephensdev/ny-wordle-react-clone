@@ -13,7 +13,6 @@ const Board = () => {
   const maxCols = 5;
 
   console.log(wordToMatch);
-  console.log(sequence);
 
   useEffect(() => {
     setWordToMatch(faker.word.adjective(maxCols));
@@ -31,7 +30,7 @@ const Board = () => {
       checkForMatch();
     }
 
-    if (event.key === 'Backspace') {
+    if (event.key === 'Backspace' || event.key === 'Delete') {
       setSequence((prevSequence) => prevSequence.slice(0, -1));
     }
   };
@@ -185,7 +184,6 @@ const Board = () => {
                 ))}
               </tbody>
             </table>
-
             <div style={{ marginTop: '20px' }}>
               {keyRows.map((row, rowIndex) => (
                 <div className="keyboard-row" key={rowIndex}>
