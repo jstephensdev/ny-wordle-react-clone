@@ -67,6 +67,7 @@ nav {
 
 .keyboard-row {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   margin: 2px;
 }
@@ -89,13 +90,6 @@ nav {
   box-shadow: 0 0 10px gray;
 }
 
-@media (max-width: 768px) {
-  .keyboard-row {
-    display: inline-flex;
-    margin-right: 15px;
-    margin-left: 15px;
-  }
-}
 /* info */
 
 ul {

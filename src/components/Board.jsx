@@ -185,6 +185,7 @@ const Board = () => {
                 ))}
               </tbody>
             </table>
+
             <div style={{ marginTop: '20px' }}>
               {keyRows.map((row, rowIndex) => (
                 <div className="keyboard-row" key={rowIndex}>
