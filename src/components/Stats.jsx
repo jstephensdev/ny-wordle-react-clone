@@ -51,18 +51,18 @@ const Stats = ({ data }) => {
       .attr('height', (d) => innerHeight - yScale(d.value))
       .attr('fill', 'black');
 
-       // Add values above the bars
+    // Add values above the bars
     svg
-    .selectAll('.bar-value')
-    .data(data)
-    .join('text')
-    .attr('class', 'bar-value')
-    .text((d) => d.value)
-    .attr('x', (d) => xScale(d.label) + xScale.bandwidth() / 2)
-    .attr('y', (d) => yScale(d.value) - 5) // Adjust the position based on your preference
-    .attr('dy', '-0.5em')
-    .attr('text-anchor', 'middle')
-    .attr('fill', 'black');
+      .selectAll('.bar-value')
+      .data(data)
+      .join('text')
+      .attr('class', 'bar-value')
+      .text((d) => d.value)
+      .attr('x', (d) => xScale(d.label) + xScale.bandwidth() / 2)
+      .attr('y', (d) => yScale(d.value) - 5) // Adjust the position based on your preference
+      .attr('dy', '-0.5em')
+      .attr('text-anchor', 'middle')
+      .attr('fill', 'black');
   }, [data]);
 
   return (
