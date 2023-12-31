@@ -17,15 +17,15 @@ const Stats = ({ data }) => {
 
     // Create scales
     const xScale = d3
-      .scaleLinear()
-      .domain([0, d3.max(data, (d) => d.value)])
-      .range([0, innerWidth]);
-
-    const yScale = d3
       .scaleBand()
       .domain(data.map((d) => d.label))
-      .range([0, innerHeight])
+      .range([0, innerWidth])
       .padding(0.1);
+
+    const yScale = d3
+      .scaleLinear()
+      .domain([0, d3.max(data, (d) => d.value) + 30])
+      .range([innerHeight, 0]);
 
     // Create axes
     const xAxis = d3.axisBottom(xScale);
@@ -45,23 +45,24 @@ const Stats = ({ data }) => {
       .data(data)
       .join('rect')
       .attr('class', 'bar')
-      .attr('x', 0)
-      .attr('y', (d) => yScale(d.label))
-      .attr('width', (d) => xScale(d.value))
-      .attr('height', yScale.bandwidth())
-      .attr('fill', 'black');
-    // Add text labels above the bars
+      .attr('x', (d) => xScale(d.label))
+      .attr('y', (d) => yScale(d.value))
+      .attr('width', xScale.bandwidth())
+      .attr('height', (d) => innerHeight - yScale(d.value))
+      .attr('fill', 'steelblue');
+
+       // Add values above the bars
     svg
-      .selectAll('.bar-label')
-      .data(data)
-      .join('text')
-      .attr('class', 'bar-label')
-      .text((d) => d.label)
-      .attr('x', (d) => xScale(d.value) + 5) // Adjust the position based on your preference
-      .attr('y', (d) => yScale(d.label) + yScale.bandwidth() / 2)
-      .attr('dy', '0em') // Move the label above the bar
-      .attr('fill', 'black') // Text color
-      .attr('text-anchor', 'start');
+    .selectAll('.bar-value')
+    .data(data)
+    .join('text')
+    .attr('class', 'bar-value')
+    .text((d) => d.value)
+    .attr('x', (d) => xScale(d.label) + xScale.bandwidth() / 2)
+    .attr('y', (d) => yScale(d.value) - 5) // Adjust the position based on your preference
+    .attr('dy', '-0.5em')
+    .attr('text-anchor', 'middle')
+    .attr('fill', 'black');
   }, [data]);
 
   return (
