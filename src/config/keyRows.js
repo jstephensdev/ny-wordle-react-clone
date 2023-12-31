@@ -40,8 +40,6 @@ export const keyRows = [
       key: 'i',
       class: 'key-default',
     },
-  ],
-  [
     {
       id: 9,
       key: 'o',
@@ -52,6 +50,8 @@ export const keyRows = [
       key: 'p',
       class: 'key-default',
     },
+  ],
+  [
     {
       id: 11,
       key: 'a',
@@ -82,8 +82,6 @@ export const keyRows = [
       key: 'h',
       class: 'key-default',
     },
-  ],
-  [
     {
       id: 17,
       key: 'j',
@@ -97,6 +95,13 @@ export const keyRows = [
     {
       id: 19,
       key: 'l',
+      class: 'key-default',
+    },
+  ],
+  [
+    {
+      id: 271,
+      key: 'Enter',
       class: 'key-default',
     },
 
@@ -125,8 +130,6 @@ export const keyRows = [
       key: 'b',
       class: 'key-default',
     },
-  ],
-  [
     {
       id: 25,
       key: 'n',
@@ -135,11 +138,6 @@ export const keyRows = [
     {
       id: 26,
       key: 'm',
-      class: 'key-default',
-    },
-    {
-      id: 271,
-      key: 'Enter',
       class: 'key-default',
     },
     {

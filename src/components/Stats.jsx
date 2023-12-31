@@ -49,7 +49,7 @@ const Stats = ({ data }) => {
       .attr('y', (d) => yScale(d.value))
       .attr('width', xScale.bandwidth())
       .attr('height', (d) => innerHeight - yScale(d.value))
-      .attr('fill', 'steelblue');
+      .attr('fill', 'black');
 
        // Add values above the bars
     svg
