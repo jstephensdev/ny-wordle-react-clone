@@ -50,19 +50,18 @@ const Stats = ({ data }) => {
       .attr('width', (d) => xScale(d.value))
       .attr('height', yScale.bandwidth())
       .attr('fill', 'black');
-  // Add text labels above the bars
-  svg
-  .selectAll('.bar-label')
-  .data(data)
-  .join('text')
-  .attr('class', 'bar-label')
-  .text((d) => d.label)
-  .attr('x', (d) => xScale(d.value) + 5) // Adjust the position based on your preference
-  .attr('y', (d) => yScale(d.label) + yScale.bandwidth() / 2)
-  .attr('dy', '0em') // Move the label above the bar
-  .attr('fill', 'black') // Text color
-  .attr('text-anchor', 'start');
-    
+    // Add text labels above the bars
+    svg
+      .selectAll('.bar-label')
+      .data(data)
+      .join('text')
+      .attr('class', 'bar-label')
+      .text((d) => d.label)
+      .attr('x', (d) => xScale(d.value) + 5) // Adjust the position based on your preference
+      .attr('y', (d) => yScale(d.label) + yScale.bandwidth() / 2)
+      .attr('dy', '0em') // Move the label above the bar
+      .attr('fill', 'black') // Text color
+      .attr('text-anchor', 'start');
   }, [data]);
 
   return (
