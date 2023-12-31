@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Modal from './Modal';
+import Stats from './Stats';
 import { faker } from '@faker-js/faker';
 import { keyRows } from '../config/keyRows';
 
@@ -11,6 +12,7 @@ const Board = () => {
   const [message, setMessage] = useState('');
   const maxRows = 6;
   const maxCols = 5;
+  const rowNum = sequence.length / maxCols;
 
   console.log(wordToMatch);
 
@@ -30,7 +32,7 @@ const Board = () => {
       checkForMatch();
     }
 
-    if (event.key === 'Backspace' || event.key === 'Delete') {
+    if ((event.key === 'Backspace' || event.key === 'Delete') && sequence.length % maxCols !== 0) {
       setSequence((prevSequence) => prevSequence.slice(0, -1));
     }
   };
@@ -56,7 +58,7 @@ const Board = () => {
     generateFeedback(sequence.slice(-5), wordToMatch);
 
     if (wordGuess === wordToMatch) {
-      setMessage('Match! Reset the board.');
+      setMessage(`Match! Reset the board. ${rowNum}`);
     } else if (sequence.length === maxRows * maxCols) {
       setMessage(`All rows filled. Correct word: '${wordToMatch}'.`);
     }
@@ -115,7 +117,14 @@ const Board = () => {
   };
 
   const statsModalContent = () => {
-    return <div>Stats coming soon!</div>;
+    const data = [
+      { label: '1', value: 20 },
+      { label: '2', value: 50 },
+      { label: '3', value: 80 },
+      { label: '4', value: 40 },
+      { label: '5', value: 40 },
+    ];
+    return <Stats data={data} />;
   };
 
   return (
@@ -123,8 +132,8 @@ const Board = () => {
       <nav className="app-header">
         <h2
           onClick={() => {
-            setShowInfo(!showInfo);
-            setShowStats(!showStats);
+            setShowInfo(false);
+            setShowStats(false);
           }}
         >
           Ad Free Wordle
@@ -133,6 +142,7 @@ const Board = () => {
           <ion-icon
             onClick={() => {
               setShowInfo(!showInfo);
+              setShowStats(false);
             }}
             name="help"
             size="large"
@@ -141,6 +151,7 @@ const Board = () => {
           <ion-icon
             onClick={() => {
               setShowStats(!showStats);
+              setShowInfo(false);
             }}
             size="large"
             name="stats-chart-outline"
