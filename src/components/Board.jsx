@@ -13,6 +13,11 @@ const Board = () => {
   const maxRows = 6;
   const maxCols = 5;
   const rowNum = sequence.length / maxCols;
+  const feedback = {
+    green: [],
+    yellow: [],
+    gray: [],
+  };
 
   console.log(wordToMatch);
 
@@ -32,7 +37,10 @@ const Board = () => {
       checkForMatch();
     }
 
-    if ((event.key === 'Backspace' || event.key === 'Delete') && sequence.length % maxCols !== 0) {
+    if (
+      (event.key === 'Backspace' || event.key === 'Delete') &&
+      sequence.length % maxCols !== 0
+    ) {
       setSequence((prevSequence) => prevSequence.slice(0, -1));
     }
   };
@@ -65,11 +73,6 @@ const Board = () => {
   };
 
   const generateFeedback = (input, target) => {
-    const feedback = {
-      green: [],
-      yellow: [],
-      gray: [],
-    };
     for (let i = 0; i < 5; i++) {
       if (input[i].key === target[i]) {
         const greenCell = document.getElementById(input[i].id);
@@ -81,8 +84,12 @@ const Board = () => {
         !feedback.green.includes(input[i].key)
       ) {
         const yellowCell = document.getElementById(input[i].id);
+        feedback.yellow.push(input[i].key);
         yellowCell.style.backgroundColor = 'yellow';
-      } else {
+      } else if (
+        !feedback.green.includes(input[i].key) &&
+        !feedback.yellow.includes(input[i].key)
+      ) {
         const grayCell = document.getElementById(input[i].id);
         grayCell.style.backgroundColor = 'gray';
       }
