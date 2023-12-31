@@ -53,8 +53,8 @@ nav {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding-left: 7px;
-  padding-right: 7px;
+  padding-left: 10px;
+  padding-right: 10px;
   padding-top: 15px;
   padding-bottom: 15px;
   border: 2px solid black;
