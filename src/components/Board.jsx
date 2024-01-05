@@ -75,7 +75,8 @@ const Board = () => {
         const greenKey = document.getElementById(input[i].key);
         feedback.green.push(input[i].key);
         greenCell.style.backgroundColor = 'green';
-        greenKey.style.backgroundColor= 'green';
+        greenKey.style.backgroundColor = 'green';
+        greenKey.style.color = 'white';
         // word includes letter and it is not green
       } else if (
         target.includes(input[i].key) &&
@@ -85,7 +86,8 @@ const Board = () => {
         const yellowKey = document.getElementById(input[i].key);
         feedback.yellow.push(input[i].key);
         yellowCell.style.backgroundColor = 'yellow';
-        yellowKey.style.backgroundColor= 'yellow'
+        yellowKey.style.backgroundColor = 'yellow';
+        yellowKey.style.color = 'black';
       } else {
         const grayCell = document.getElementById(input[i].id);
         const grayKey = document.getElementById(input[i].key);
