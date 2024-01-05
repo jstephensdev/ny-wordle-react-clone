@@ -5,7 +5,7 @@ import Board from './components/Board';
 function App() {
   const outlet = useOutlet()
   return (
-    <div className="centeringContainer">
+    <div>
       <nav className="app-header">
         <NavLink to={`/`}>
           <h2>Ad Free Wordle</h2>

@@ -3,12 +3,12 @@ import { faker } from '@faker-js/faker';
 import { keyRows } from '../config/keyRows';
 
 const Board = () => {
-  const [sequence, setSequence] = useState([]);
+  const [keys, setKeys] = useState([]);
   const [wordToMatch, setWordToMatch] = useState('');
   const [message, setMessage] = useState('');
   const maxRows = 6;
   const maxCols = 5;
-  const rowNum = sequence.length / maxCols;
+  const rowNum = keys.length / maxCols;
 
   console.log(wordToMatch);
 
@@ -18,20 +18,20 @@ const Board = () => {
 
   const handleKeyDown = (event) => {
     if (event.key.length === 1 && event.key.match(/[a-z]/i) && !message) {
-      setSequence((prevSequence) => [
+      setKeys((prevSequence) => [
         ...prevSequence,
-        { id: sequence.length, key: event.key },
+        { id: keys.length, key: event.key },
       ]);
     }
 
     if (
       (event.key === 'Backspace' || event.key === 'Delete') &&
-      sequence.length % maxCols !== 0
+      keys.length % maxCols !== 0
     ) {
-      setSequence((prevSequence) => prevSequence.slice(0, -1));
+      setKeys((prevSequence) => prevSequence.slice(0, -1));
     }
 
-    if (sequence.length % maxCols === 0 && sequence.length > 0) {
+    if (keys.length % maxCols === 0 && keys.length > 0) {
       checkForMatch();
     }
   };
@@ -45,20 +45,20 @@ const Board = () => {
   });
 
   const getCellValue = (index) => {
-    return sequence.length > index ? sequence[index] : '';
+    return keys.length > index ? keys[index] : '';
   };
 
   const checkForMatch = () => {
-    const wordGuess = sequence
+    const wordGuess = keys
       .map((obj) => obj.key)
       .slice(-5)
       .join('');
     // add green, yellow, and gray to cells
-    generateFeedback(sequence.slice(-5), wordToMatch);
+    generateFeedback(keys.slice(-5), wordToMatch);
 
     if (wordGuess === wordToMatch) {
       setMessage(`Match! Reset the board. ${rowNum}`);
-    } else if (sequence.length === maxRows * maxCols) {
+    } else if (keys.length === maxRows * maxCols) {
       setMessage(`All rows filled. Correct word: '${wordToMatch}'.`);
     }
   };
@@ -116,7 +116,7 @@ const Board = () => {
         ''
       )}
       <div>
-        <table className="key-sequence-table">
+        <table className="keys-table">
           <tbody>
             {Array.from({ length: maxRows }, (_, rowIndex) => (
               <tr key={rowIndex}>

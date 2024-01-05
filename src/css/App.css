@@ -25,7 +25,7 @@ a {
   margin-top: 20px;
 }
 
-.key-sequence-table {
+.keys-table {
   border-collapse: collapse;
   margin: 20px auto;
 }
@@ -38,18 +38,6 @@ a {
   vertical-align: middle;
   font-size: 25px;
   padding: 10px;
-}
-
-.key-yellow {
-  background: #ffc600;
-}
-
-.key-gray {
-  background: gray;
-}
-
-.key-green  {
-  background: green;
 }
 
 /* keyboard */
@@ -74,24 +62,6 @@ a {
   flex-wrap: wrap;
   justify-content: center;
   margin: 1px;
-}
-
-.key-in-correct-spot {
-  transform: scale(1.1);
-  border-color: green;
-  box-shadow: 0 0 10px green;
-}
-
-.key-in-word {
-  transform: scale(1.1);
-  border-color: #ffc600;
-  box-shadow: 0 0 10px #ffc600;
-}
-
-.key-not-in-word {
-  transform: scale(1.1);
-  border-color: gray;
-  box-shadow: 0 0 10px gray;
 }
 
 /* info */
