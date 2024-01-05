@@ -9,8 +9,9 @@ This react app provides a simular experience to the New York Time's daily Wordle
 
 ## Technology Used:
 1. React
-2. Faker
-3. D3.js
+2. React Router
+3. Faker
+4. D3.js
 
 ## Features:
 1. guess a 5 letter word in 6 guesses

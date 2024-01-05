@@ -1,7 +1,8 @@
 import React, { useEffect, useRef } from 'react';
 import * as d3 from 'd3';
 
-const Stats = ({ data }) => {
+const Stats = () => {
+
   const svgRef = useRef();
 
   useEffect(() => {
@@ -14,6 +15,14 @@ const Stats = ({ data }) => {
     const margin = { top: 20, right: 20, bottom: 20, left: 20 };
     const innerWidth = width - margin.left - margin.right;
     const innerHeight = height - margin.top - margin.bottom;
+
+    const data = [
+      { label: '1', value: 20 },
+      { label: '2', value: 50 },
+      { label: '3', value: 80 },
+      { label: '4', value: 40 },
+      { label: '5', value: 40 },
+    ]
 
     // Create scales
     const xScale = d3
@@ -59,17 +68,19 @@ const Stats = ({ data }) => {
       .attr('class', 'bar-value')
       .text((d) => d.value)
       .attr('x', (d) => xScale(d.label) + xScale.bandwidth() / 2)
-      .attr('y', (d) => yScale(d.value) - 5) // Adjust the position based on your preference
+      .attr('y', (d) => yScale(d.value) - 5)
       .attr('dy', '-0.5em')
       .attr('text-anchor', 'middle')
       .attr('fill', 'black');
-  }, [data]);
+  });
 
   return (
-    <svg ref={svgRef} width={400} height={200}>
-      <g className="x-axis" />
-      <g className="y-axis" />
-    </svg>
+    <div className="container">
+      <svg ref={svgRef} width={400} height={200}>
+        <g className="x-axis" />
+        <g className="y-axis" />
+      </svg>
+    </div>
   );
 };
 

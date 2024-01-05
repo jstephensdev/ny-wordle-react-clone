@@ -1,23 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import Modal from './Modal';
-import Stats from './Stats';
 import { faker } from '@faker-js/faker';
 import { keyRows } from '../config/keyRows';
 
 const Board = () => {
   const [sequence, setSequence] = useState([]);
-  const [showInfo, setShowInfo] = useState(false);
-  const [showStats, setShowStats] = useState(false);
   const [wordToMatch, setWordToMatch] = useState('');
   const [message, setMessage] = useState('');
   const maxRows = 6;
   const maxCols = 5;
   const rowNum = sequence.length / maxCols;
-  const feedback = {
-    green: [],
-    yellow: [],
-    gray: [],
-  };
 
   console.log(wordToMatch);
 
@@ -33,15 +24,15 @@ const Board = () => {
       ]);
     }
 
-    if (sequence.length % maxCols === 0 && sequence.length > 0) {
-      checkForMatch();
-    }
-
     if (
       (event.key === 'Backspace' || event.key === 'Delete') &&
       sequence.length % maxCols !== 0
     ) {
       setSequence((prevSequence) => prevSequence.slice(0, -1));
+    }
+
+    if (sequence.length % maxCols === 0 && sequence.length > 0) {
+      checkForMatch();
     }
   };
 
@@ -73,25 +64,33 @@ const Board = () => {
   };
 
   const generateFeedback = (input, target) => {
+    const feedback = {
+      green: [],
+      yellow: [],
+      gray: [],
+    };
     for (let i = 0; i < 5; i++) {
       if (input[i].key === target[i]) {
         const greenCell = document.getElementById(input[i].id);
+        const greenKey = document.getElementById(input[i].key);
         feedback.green.push(input[i].key);
         greenCell.style.backgroundColor = 'green';
+        greenKey.style.backgroundColor= 'green';
         // word includes letter and it is not green
       } else if (
         target.includes(input[i].key) &&
         !feedback.green.includes(input[i].key)
       ) {
         const yellowCell = document.getElementById(input[i].id);
+        const yellowKey = document.getElementById(input[i].key);
         feedback.yellow.push(input[i].key);
         yellowCell.style.backgroundColor = 'yellow';
-      } else if (
-        !feedback.green.includes(input[i].key) &&
-        !feedback.yellow.includes(input[i].key)
-      ) {
+        yellowKey.style.backgroundColor= 'yellow'
+      } else {
         const grayCell = document.getElementById(input[i].id);
+        const grayKey = document.getElementById(input[i].key);
         grayCell.style.backgroundColor = 'gray';
+        grayKey.style.backgroundColor = 'gray';
       }
     }
   };
@@ -100,137 +99,55 @@ const Board = () => {
     window.location.reload();
   };
 
-  const infoModalContent = () => {
-    return (
-      <ul>
-        <li>Type a five letter word.</li>
-        <li>
-          Green: the letter is in the correct spot in the word. <br /> Yellow:
-          the letter exists in the word.
-          <br />
-          Gray: the letter is not in the word.
-        </li>
-        <li>Continue to guess until there are no more rows.</li>
-        <li>
-          If the word is correct, a message with match and a reset button will
-          appear.
-        </li>
-        <li>
-          If no more guesses available, a message will appear with correct word
-          and a reset button.
-        </li>
-      </ul>
-    );
-  };
-
-  const statsModalContent = () => {
-    const data = [
-      { label: '1', value: 20 },
-      { label: '2', value: 50 },
-      { label: '3', value: 80 },
-      { label: '4', value: 40 },
-      { label: '5', value: 40 },
-    ];
-    return <Stats data={data} />;
-  };
-
   return (
-    <div className="key-sequence-container">
-      <nav className="app-header">
-        <h2
-          onClick={() => {
-            setShowInfo(false);
-            setShowStats(false);
-          }}
-        >
-          Ad Free Wordle
-        </h2>
+    <div className="container">
+      {message ? (
         <div>
-          <ion-icon
-            onClick={() => {
-              setShowInfo(!showInfo);
-              setShowStats(false);
-            }}
-            name="help"
-            size="large"
-            aria-label="Info"
-          ></ion-icon>
-          <ion-icon
-            onClick={() => {
-              setShowStats(!showStats);
-              setShowInfo(false);
-            }}
-            size="large"
-            name="stats-chart-outline"
-            aria-label="Stats"
-          ></ion-icon>
-          <a
-            rel="noreferrer"
-            href="https://github.com/jstephensdev/ny-wordle-react-clone"
-            target="_blank"
-          >
-            <ion-icon
-              size="large"
-              aria-label="github"
-              name="logo-github"
-            ></ion-icon>
-          </a>
+          {message}
+          <span>
+            <button style={{ marginLeft: '1rem' }} onClick={resetBoard}>
+              Reset
+            </button>
+          </span>
         </div>
-      </nav>
-      {showInfo ? (
-        <Modal title="How To:" content={infoModalContent()} />
-      ) : showStats ? (
-        <Modal title="Stats:" content={statsModalContent()} />
       ) : (
-        <>
-          {message ? (
-            <div>
-              {message}
-              <span>
-                <button style={{ marginLeft: '1rem' }} onClick={resetBoard}>
-                  Reset
-                </button>
-              </span>
-            </div>
-          ) : (
-            ''
-          )}
-          <div>
-            <table className="key-sequence-table">
-              <tbody>
-                {Array.from({ length: maxRows }, (_, rowIndex) => (
-                  <tr key={rowIndex}>
-                    {Array.from({ length: maxCols }, (_, colIndex) => (
-                      <td
-                        id={getCellValue(rowIndex * maxCols + colIndex).id}
-                        key={colIndex}
-                        className="key-cell"
-                      >
-                        {getCellValue(rowIndex * maxCols + colIndex).key}
-                      </td>
-                    ))}
-                  </tr>
+        ''
+      )}
+      <div>
+        <table className="key-sequence-table">
+          <tbody>
+            {Array.from({ length: maxRows }, (_, rowIndex) => (
+              <tr key={rowIndex}>
+                {Array.from({ length: maxCols }, (_, colIndex) => (
+                  <td
+                    id={getCellValue(rowIndex * maxCols + colIndex).id}
+                    key={colIndex}
+                    className="key-cell"
+                  >
+                    {getCellValue(rowIndex * maxCols + colIndex).key}
+                  </td>
                 ))}
-              </tbody>
-            </table>
-            <div style={{ marginTop: '20px' }}>
-              {keyRows.map((row, rowIndex) => (
-                <div className="keyboard-row" key={rowIndex}>
-                  {row.map((key, keyIndex) => (
-                    <button
-                      onClick={() => handleKeyDown(key)}
-                      className={key.class}
-                      key={keyIndex}
-                    >
-                      {key.key}
-                    </button>
-                  ))}
-                </div>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <div style={{ marginTop: '20px' }}>
+          {keyRows.map((row, rowIndex) => (
+            <div className="keyboard-row" key={rowIndex}>
+              {row.map((key, keyIndex) => (
+                <button
+                  onClick={() => handleKeyDown(key)}
+                  className={key.class}
+                  key={keyIndex}
+                  id={key.key}
+                >
+                  {key.key}
+                </button>
               ))}
             </div>
-          </div>
-        </>
-      )}
+          ))}
+        </div>
+      </div>
     </div>
   );
 };
