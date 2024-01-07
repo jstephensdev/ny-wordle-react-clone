@@ -7,13 +7,14 @@ const Board = () => {
   const [wordToMatch, setWordToMatch] = useState('');
   const [message, setMessage] = useState('');
   const maxRows = 6;
-  const maxCols = 5;
+  const maxCols = Number(localStorage.getItem('maxCols')) ?? 5;
   const rowNum = keys.length / maxCols;
 
   console.log(wordToMatch);
 
   useEffect(() => {
     setWordToMatch(faker.word.adjective(maxCols));
+    // eslint-disable-next-line
   }, []);
 
   const handleKeyDown = (event) => {
@@ -51,10 +52,10 @@ const Board = () => {
   const checkForMatch = () => {
     const wordGuess = keys
       .map((obj) => obj.key)
-      .slice(-5)
+      .slice(-maxCols)
       .join('');
     // add green, yellow, and gray to cells
-    generateFeedback(keys.slice(-5), wordToMatch);
+    generateFeedback(keys.slice(-maxCols), wordToMatch);
 
     if (wordGuess === wordToMatch) {
       setMessage(`Match! Reset the board. ${rowNum}`);
@@ -69,7 +70,7 @@ const Board = () => {
       yellow: [],
       gray: [],
     };
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < maxCols; i++) {
       if (input[i].key === target[i]) {
         const greenCell = document.getElementById(input[i].id);
         const greenKey = document.getElementById(input[i].key);

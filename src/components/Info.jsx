@@ -2,9 +2,13 @@ import React from 'react';
 
 const Info = () => {
   return (
-    <div style={{ display: 'flex', justifyContent: 'center', textAlign: 'left'}}>
+    <div
+      style={{ display: 'flex', justifyContent: 'center', textAlign: 'left' }}
+    >
       <ul>
-        <li>Type a five letter word.</li>
+        <li>
+          Guess a 3 to 9 letter word. By default the word length is set to 5.
+        </li>
         <li>
           Green: the letter is in the correct spot in the word. <br /> Yellow:
           the letter exists in the word.

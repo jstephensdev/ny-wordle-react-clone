@@ -1,17 +1,17 @@
-This react app provides a simular experience to the New York Time's daily Wordle puzzle, https://www.nytimes.com/games/wordle/index.html. It is a work in progress.
+This project,https://adfreewordle.netlify.app/, provides a simular experience to the New York Time's daily Wordle puzzle, https://www.nytimes.com/games/wordle/index.html. Guess 3 to 9 letter words and do so ad free.
 
 
 <img src="./readme-image.png" alt="NY Times Wordle React Clone" height="400" width="400" style="vertical-align:top; margin:4px">
-
-## local start:
-1. npm install
-2. npm start
 
 ## Technology Used:
 1. React
 2. React Router
 3. Faker
 4. D3.js
+
+## Running Locally:
+1. npm install
+2. npm start
 
 ## Features:
 1. guess a 5 letter word in 6 guesses
@@ -21,10 +21,13 @@ This react app provides a simular experience to the New York Time's daily Wordle
 5. undue letters via delete / backspace
 
 ## Things to Improve or Todo:
-1. keyboard keys light up too
-2. improve word selection by providing words from larger word list
-3. add and make setting icon work. 
-4. add ability to set maxCols for longer or shorter words
-5. store stats 
-6. create stats section
-7. mobile css needs work
+1. improve word selection by providing more than faker adjective words
+2. store and display stats 
+3. ensure mobile css effectivness 
+4. update app without full page reload after a word is guessed or the word is not guessed 
+
+## Resources
+1. https://fakerjs.dev/api/word.html#word
+2. https://kamibrumi.medium.com/getting-started-with-react-d3-js-d86ccea05f08
+3. https://laracasts.com/series/wordle-workshop
+4. https://www.freecodecamp.org/news/how-to-get-started-with-d3-and-react-c7da74a5bd9f/

@@ -14,6 +14,13 @@ function App() {
           <NavLink to={`info`}>
             <ion-icon name="help" size="large" aria-label="Info"></ion-icon>
           </NavLink>
+          <NavLink to={`settings`}>
+            <ion-icon
+              size="large"
+              name="settings"
+              aria-label="Settings"
+            ></ion-icon>
+          </NavLink>
           <NavLink to={`stats`}>
             <ion-icon
               size="large"

@@ -2,8 +2,11 @@ import React, { useEffect, useRef } from 'react';
 import * as d3 from 'd3';
 
 const Stats = () => {
-
   const svgRef = useRef();
+
+  // const stats = JSON.parse(localStorage.getItem('wordleStats') ?? '')
+
+  // console.log(stats)
 
   useEffect(() => {
     // Select the SVG container using D3
@@ -17,12 +20,13 @@ const Stats = () => {
     const innerHeight = height - margin.top - margin.bottom;
 
     const data = [
-      { label: '1', value: 20 },
-      { label: '2', value: 50 },
-      { label: '3', value: 80 },
-      { label: '4', value: 40 },
-      { label: '5', value: 40 },
-    ]
+      { label: '1', value: 2 },
+      { label: '2', value: 5 },
+      { label: '3', value: 8 },
+      { label: '4', value: 4 },
+      { label: '5', value: 4 },
+      { label: '6', value: 4 },
+    ];
 
     // Create scales
     const xScale = d3
