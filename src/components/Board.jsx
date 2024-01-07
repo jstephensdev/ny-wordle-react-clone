@@ -3,11 +3,14 @@ import { faker } from '@faker-js/faker';
 import { keyRows } from '../config/keyRows';
 
 const Board = () => {
+  if (localStorage.getItem('maxCols') === null) {
+    localStorage.setItem('maxCols', 5);
+  }
   const [keys, setKeys] = useState([]);
   const [wordToMatch, setWordToMatch] = useState('');
   const [message, setMessage] = useState('');
   const maxRows = 6;
-  const maxCols = Number(localStorage.getItem('maxCols')) ?? 5;
+  const maxCols = Number(localStorage.getItem('maxCols'));
   const rowNum = keys.length / maxCols;
 
   console.log(wordToMatch);
