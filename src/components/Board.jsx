@@ -81,10 +81,10 @@ const Board = () => {
         greenCell.style.backgroundColor = 'green';
         greenKey.style.backgroundColor = 'green';
         greenKey.style.color = 'white';
-        // word includes letter and it is not green
       } else if (
         target.includes(input[i].key) &&
-        !feedback.green.includes(input[i].key)
+        !feedback.green.includes(input[i].key) &&
+        !feedback.yellow.includes(input[i].key)
       ) {
         const yellowCell = document.getElementById(input[i].id);
         const yellowKey = document.getElementById(input[i].key);
