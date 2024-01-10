@@ -140,11 +140,11 @@ const Board = () => {
         <div style={{ marginTop: '20px' }}>
           {keyRows.map((row, rowIndex) => (
             <div className="keyboard-row" key={rowIndex}>
-              {row.map((key, keyIndex) => (
+              {row.map((key) => (
                 <button
                   onClick={() => handleKeyDown(key)}
-                  className={key.class}
-                  key={keyIndex}
+                  className="key-default"
+                  key={key.id}
                   id={key.key}
                 >
                   {key.key}

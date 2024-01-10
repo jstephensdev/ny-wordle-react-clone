@@ -24,7 +24,9 @@ This project,https://adfreewordle.netlify.app/, provides a simular experience to
 1. improve word selection by providing more than faker adjective words
 2. store and display stats 
 3. ensure mobile css effectivness 
-4. update app without full page reload after a word is guessed or the word is not guessed 
+4. update app without full page reload after a word is guessed or the word is not guessed
+5. check match occurs when trying to delete or backspace the last letter in a row
+6. only check valid words
 
 ## Resources
 1. https://fakerjs.dev/api/word.html#word
