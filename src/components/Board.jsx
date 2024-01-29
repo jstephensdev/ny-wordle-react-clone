@@ -22,8 +22,8 @@ const Board = () => {
 
   const handleKeyDown = (event) => {
     if (event.key.length === 1 && event.key.match(/[a-z]/i) && !message) {
-      setKeys((prevSequence) => [
-        ...prevSequence,
+      setKeys((prevKeys) => [
+        ...prevKeys,
         { id: keys.length, key: event.key },
       ]);
     }
@@ -32,7 +32,7 @@ const Board = () => {
       (event.key === 'Backspace' || event.key === 'Delete') &&
       keys.length % maxCols !== 0
     ) {
-      setKeys((prevSequence) => prevSequence.slice(0, -1));
+      setKeys((prevKeys) => prevKeys.slice(0, -1));
     }
 
     if (keys.length % maxCols === 0 && keys.length > 0) {
